@@ -3,8 +3,9 @@ Simple python script to remove SEE Electrical watermark from students version of
 ```powershell
 python .\app.py "pdf_file.pdf"
 ```
+<br><br>
 
-Before:\\
-![with_watermark](Example/example.pdf)\\ \\
-After:\\
+Before:<br>
+![with_watermark](Example/example.pdf)<br><br>
+After:<br>
 ![without_watermark](Example/example_watermarkless.pdf.pdf)
