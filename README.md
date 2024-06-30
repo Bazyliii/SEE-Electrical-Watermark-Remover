@@ -4,8 +4,7 @@ Simple python script to remove SEE Electrical watermark from students version of
 python .\app.py "pdf_file.pdf"
 ```
 
-Before:
-![with_watermark](Example/example.pdf)
-<iframe src="Example/example.pdf" width="100%" height="500" frameborder="0" />
-After:
+Before:\\
+![with_watermark](Example/example.pdf)\\ \\
+After:\\
 ![without_watermark](Example/example_watermarkless.pdf.pdf)
