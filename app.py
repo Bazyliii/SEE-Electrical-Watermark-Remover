@@ -1,16 +1,26 @@
-import re
 from sys import argv
+from pathlib import Path
+import re
 
 if __name__ == "__main__":
     if len(argv) != 2:
         raise ValueError(r'''Provide a pdf file as an argument.
 Example: python .\app.py "pdf_file.pdf"''')
-    file: str = argv[1]
-    if not file.endswith(".pdf"):
+    file: Path = Path(argv[1])
+    if not file.suffix == ".pdf":
         raise ValueError("Not a PDF file!")
-    with open(file, "rb") as f:
-        file_stream: bytes = f.read()
-        file_stream = re.sub(rb"\n/Image.*", b"", file_stream)
-    with open(file.strip(".pdf") + "_watermarkless.pdf", "wb") as f:
+    file_stream_clean: bytes = b""
+    with file.open("rb") as f:
+        file_stream = f.read()
+        pattern_string = ""
+        for i in range(98, 158, 1):
+            pattern_string += r"\n/Image\d{1,}\s" + str(i) + r"\s0\sR|"
+        for i in range(211, 234, 1):
+            pattern_string += r"\n/Image\d{1,}\s" + str(i) + r"\s0\sR|"
+        pattern_string = pattern_string[:-1]
+        remove_pattern = re.compile(pattern_string.encode("utf-8"))
+        file_stream = re.sub(remove_pattern, b"", file_stream)
+
+    with file.with_name(file.stem + "_watermarkless" + file.suffix).open("wb") as f:
         f.write(file_stream)
     print("Done!")
