@@ -9,13 +9,14 @@ Example: python .\app.py "pdf_file.pdf"''')
     file: Path = Path(argv[1])
     if not file.suffix == ".pdf":
         raise ValueError("Not a PDF file!")
-    file_stream_clean: bytes = b""
     with file.open("rb") as f:
         file_stream = f.read()
+        # with file.with_name(file.stem + "_stream.txt").open("w") as f:
+        #     f.write(str(file_stream))
         pattern_string = ""
         for i in range(98, 158, 1):
             pattern_string += r"\n/Image\d{1,}\s" + str(i) + r"\s0\sR|"
-        for i in range(211, 234, 1):
+        for i in range(211, 238, 1):
             pattern_string += r"\n/Image\d{1,}\s" + str(i) + r"\s0\sR|"
         pattern_string = pattern_string[:-1]
         remove_pattern = re.compile(pattern_string.encode("utf-8"))
